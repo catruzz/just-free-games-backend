@@ -54,6 +54,7 @@ def get_giveaways(supplier_id):
                                datetime.timedelta(days=32)).replace(day=2, hour=0, minute=0, second=0, microsecond=0)
 
             # loop over radio buttons to find the MSRP
+            msrp = None
             for i in range(3):
                 msrp_container = None
                 msrp_container = soup2.find(
