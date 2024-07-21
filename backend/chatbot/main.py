@@ -930,14 +930,14 @@ async def unknown(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     return ConversationHandler.END
 
 
-async def logs(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def logs(update: Update, context: ContextTypes.DEFAULT_TYPE, disable_notification=False) -> int:
     global pause_publish, pause_review
     """Send logs file."""
     text = "📂 Saving logs... 📂"
-    await send_message(context=context, text=text, photo=False)
-    os.system('pm2 logs --lines 500 --nostream > logs/logs.txt')
+    await send_message(context=context, text=text, photo=False, disable_notification=disable_notification)
+    os.system('pm2 logs --lines 100 --nostream > logs/logs.txt')
     with open('logs/logs.txt', 'rb') as file:
-        await context.bot.send_document(chat_id=DEVELOPER_CHAT_ID, document=file)
+        await context.bot.send_document(chat_id=DEVELOPER_CHAT_ID, document=file, disable_notification=disable_notification)
 
     pause_publish = False
     pause_review = False
@@ -982,7 +982,7 @@ async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE, cust
 
     # Finally, send the message, without notification
     await send_message(context=context, text=text, disable_notification=True, photo=False)
-    return ConversationHandler.END
+    return logs(update, context, disable_notification=True)
 
 
 def main() -> None:
