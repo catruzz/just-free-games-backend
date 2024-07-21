@@ -31,7 +31,7 @@ def get_giveaways(supplier_id):
     try:
         soup = BeautifulSoup(page_source, 'html.parser')
 
-        for item in soup.find_all('div', class_='content'):
+        for item in soup.find_all('article', class_='content'):
             button = item.find('button', type='button')
             if not button or button.text.strip() != "Open":
                 continue
