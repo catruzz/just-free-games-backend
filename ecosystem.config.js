@@ -5,6 +5,7 @@ const ignoreWatch = [
   "\\.git",
   "backend/scraper/__pycache__",
   "backend/scraper/suppliers/__pycache__",
+  "backend/scraper/utils/__pycache__",
   "public",
   "logs",
   "node_modules",
