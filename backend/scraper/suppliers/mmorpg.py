@@ -14,7 +14,6 @@ def get_giveaways(supplier_id):
     giveaways = []
     base_url = 'https://www.mmorpg.com'
     giveaways_url = 'https://www.mmorpg.com/giveaways'
-    keys_api_url = 'https://www.mmorpg.com/ajax/tools.cfc?method=key_counts&gids='
 
     timeout = 10
 
@@ -37,14 +36,8 @@ def get_giveaways(supplier_id):
 
     try:
         soup = BeautifulSoup(page_source, 'html.parser')
-        keys = soup.find_all('a', {"data-giveaway": re.compile('\d+')})
-        gids = []
-        for key in keys:
-            gids.append(key['data-giveaway'])
-        keys_api_url += ','.join(gids)
-        response = requests.get(keys_api_url)
+
         time.sleep(0.5)
-        # json = response.json()
         for item in soup.find_all('div', class_='item__tile'):
             gid = item.find('a', {"data-giveaway": re.compile('\d+')})
             if gid['data-giveaway'] == 0:
