@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "65b1db897db82a7bb6b3fdb11c0fe80f85e366a66fea187e457ed79eded9492f"
+            "sha256": "8b58377af0f229d199885482c49e16d179eddf7f432603760b1e4f3b65513336"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -41,11 +41,11 @@
         },
         "attrs": {
             "hashes": [
-                "sha256:935dc3b529c262f6cf76e50877d35a4bd3c1de194fd41f47a2b7ae8f19971f30",
-                "sha256:99b87a485a5820b23b879f04c2305b44b951b502fd64be915879d77a7e8fc6f1"
+                "sha256:5cfb1b9148b5b086569baec03f20d7b6bf3bcacc9a42bebf87ffaaca362f6346",
+                "sha256:81921eb96de3191c8258c199618104dd27ac608d9366f5e35d011eae1867ede2"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==23.2.0"
+            "version": "==24.2.0"
         },
         "beautifulsoup4": {
             "hashes": [
@@ -170,12 +170,12 @@
         },
         "django": {
             "hashes": [
-                "sha256:3ec32bc2c616ab02834b9cac93143a7dc1cdcd5b822d78ac95fc20a38c534240",
-                "sha256:fc6919875a6226c7ffcae1a7d51e0f2ceaf6f160393180818f6c95f51b1e7b96"
+                "sha256:61ee4a130efb8c451ef3467c67ca99fdce400fedd768634efc86a68c18d80d30",
+                "sha256:c77f926b81129493961e19c0e02188f8d07c112a1162df69bfab178ae447f94a"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==4.2.14"
+            "version": "==4.2.15"
         },
         "django-cors-headers": {
             "hashes": [
@@ -363,11 +363,11 @@
         },
         "soupsieve": {
             "hashes": [
-                "sha256:5663d5a7b3bfaeee0bc4372e7fc48f9cff4940b3eec54a6451cc5299f1097690",
-                "sha256:eaa337ff55a1579b6549dc679565eac1e3d000563bcb1c8ab0d0fefbc0c2cdc7"
+                "sha256:e2e68417777af359ec65daac1057404a3c8a5455bb8abc36f1a9866ab1a51abb",
+                "sha256:e72c4ff06e4fb6e4b5a9f0f55fe6e81514581fca1515028625d0f299c602ccc9"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==2.5"
+            "version": "==2.6"
         },
         "sqlparse": {
             "hashes": [
@@ -394,11 +394,11 @@
         },
         "trio": {
             "hashes": [
-                "sha256:67c5ec3265dd4abc7b1d1ab9ca4fe4c25b896f9c93dac73713778adab487f9c4",
-                "sha256:bb9c1b259591af941fccfbabbdc65bc7ed764bd2db76428454c894cd5e3d2032"
+                "sha256:0346c3852c15e5c7d40ea15972c4805689ef2cb8b5206f794c9c19450119f3a4",
+                "sha256:c5237e8133eb0a1d72f09a971a55c28ebe69e351c783fc64bc37db8db8bbe1d0"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==0.26.0"
+            "version": "==0.26.2"
         },
         "trio-websocket": {
             "hashes": [
