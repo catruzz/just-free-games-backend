@@ -1,3 +1,4 @@
+from datetime import datetime
 from dotenv import load_dotenv
 from backend.scraper.utils import lib
 import os
@@ -5,6 +6,28 @@ import praw
 import re
 import traceback
 load_dotenv()
+
+
+def get_date(s_date):
+    date_patterns = [
+        '%B %d, %H:%M %Z', '%B %d, %H:%M',
+        '%B %d %H:%M %Z', '%B %d %H:%M',
+        '%b %d, %H:%M %Z', '%b %d, %H:%M',
+        '%b %d %H:%M %Z', '%b %d %H:%M',
+        '%B %d', '%b %d'
+    ]
+
+    for pattern in date_patterns:
+        try:
+            date = datetime.strptime(s_date, pattern)
+            # set year to current year
+            # if date is in the past, set year to next year
+            date = date.replace(year=datetime.now().year)
+            if date < datetime.now():
+                date = date.replace(year=datetime.now().year + 1)
+            return date
+        except:
+            pass
 
 
 def parse_title(text):
@@ -55,6 +78,26 @@ def get_giveaways(supplier_id):
             if (link_flair_text is not None and 'F2P' in link_flair_text):
                 continue
 
+            expiration_date_text = ''
+            try:
+                link_flair_text_exploded = link_flair_text.split(' | ')
+                # remove elements not cointaining dates
+                link_flair_text_exploded = [
+                    x for x in link_flair_text_exploded if 'Ends' in x or 'Available until' in x]
+
+                expiration_date_text = link_flair_text_exploded[0]
+                # explode by 'Ends' or 'Available until'
+                expiration_date_text = expiration_date_text.split(
+                    'Ends' if 'Ends' in expiration_date_text else 'Available until')
+                expiration_date_text = expiration_date_text[1]
+                # remove leading and trailing whitespaces
+                expiration_date_text = expiration_date_text.strip()
+            except:
+                pass
+
+            expiration_date = get_date(
+                expiration_date_text) if expiration_date_text != '' else None
+
             giveaway = parse_title(str(submission.title))
             giveaway_platforms, giveaway_type, giveaway_title = giveaway
             giveaways.append({
@@ -64,6 +107,7 @@ def get_giveaways(supplier_id):
                 'url': submission.url,
                 'description': '',
                 'supplier': supplier_id,
+                'expiration_date': expiration_date,
                 'show_source': True,
                 'post_id': submission.id,
                 'post_title': submission.title,
