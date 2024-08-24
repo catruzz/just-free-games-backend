@@ -87,7 +87,7 @@ def get_giveaways(supplier_id):
                 giveaway_platforms = lib.get_giveaway_platforms(
                     'amazon')
                 expiration_date = None
-                if giveaway_type == Giveaway.Type.GAME and url not in scraped_urls:
+                if url not in scraped_urls:
                     #  keep track of scraped url
                     scraped_urls.append(url)
                     browser.get(url)
