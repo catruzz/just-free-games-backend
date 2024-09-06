@@ -27,7 +27,17 @@ def get_giveaways(supplier_id):
                         el['price']['lineOffers'][0]['appliedRules'][0]['endDate'], '%Y-%m-%dT%H:%M:%S.%fZ')
                 except:
                     expiration_date = None
-                product_slug = el['productSlug'] if el['productSlug'] else el['offerMappings'][0]['pageSlug']
+
+                product_slug = ''
+                if el['productSlug']:
+                    product_slug = el['productSlug']
+                elif el['offerMappings']:
+                    product_slug = el['offerMappings'][0]['pageSlug']
+                elif el['productSlug']:
+                    product_slug = el['productSlug']
+                elif el['urlSlug']:
+                    product_slug = el['urlSlug']
+
                 giveaways.append({
                     'platforms': giveaway_platforms,
                     'type': giveaway_type,
