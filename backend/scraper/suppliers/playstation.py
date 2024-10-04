@@ -19,9 +19,8 @@ def get_giveaways(supplier_id):
 
         giveaway_type = lib.get_giveaway_type('Game')
 
-        monthly_games = soup.find(
-            'div', class_='cmp-experiencefragment--your-latest-monthly-games')
-        for item in monthly_games.find_all('div', class_='box'):
+        monthly_games = soup.find('section', id='monthly-games')
+        for item in monthly_games.find_all('div', class_='box--light'):
             title = item.find('h3')
             if title is None:
                 continue
@@ -29,7 +28,7 @@ def get_giveaways(supplier_id):
             image = item.find('picture', class_='media-block__img')
             if image is not None:
                 image = image.find_all('source')[2]['srcset']
-            link = item.find('a', class_='cta__primary')
+            link = item.find('a', class_='btn--cta')
             if link is None:
                 continue
             href = link['href']
