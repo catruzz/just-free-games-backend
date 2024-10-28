@@ -9,7 +9,6 @@ import traceback
 
 def get_giveaways(supplier_id):
     giveaways = []
-    base_url = 'https://www.mmobomb.com/'
     giveaways_url = 'https://www.mmobomb.com/giveaway/'
 
     timeout = 5
@@ -46,7 +45,7 @@ def get_giveaways(supplier_id):
                 'platforms': giveaway_platforms,
                 'type': giveaway_type,
                 'title': giveaway_title,
-                'url': base_url+link['href'],
+                'url': link['href'],
                 'description': '',
                 'supplier': supplier_id,
                 'post_id': giveaway_title,
