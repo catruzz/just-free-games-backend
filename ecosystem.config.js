@@ -46,10 +46,7 @@ module.exports = {
       script:
         'sleep 20 && \
         python -Xutf8 manage.py dumpdata backend.giveaway --indent 2 -o public/unfiltered_giveaways.json && \
-        jq \'[.[] | select(.fields.status == "PUBLISHED" or .fields.status == "EXPIRED")] && \
-          | sort_by(.fields.created_at) | reverse && \
-          | [group_by(.fields.status)[] | if .[0].fields.status == "EXPIRED" then .[:100] else . end] && \
-          | add\' public/unfiltered_giveaways.json > public/giveaways.json && \
+        jq \'[.[] | select(.fields.status == "PUBLISHED" or .fields.status == "EXPIRED")] | sort_by(.fields.created_at) | reverse | [group_by(.fields.status)[] | if .[0].fields.status == "EXPIRED" then .[:100] else . end] | add\' public/unfiltered_giveaways.json > public/giveaways.json && \
         curl -T public/giveaways.json ftp://${FTP_HOST}/public/ --user ${FTP_USERNAME}:${FTP_PASSWORD}',
       cron_restart: "*/5 * * * *",
       autorestart: false,
