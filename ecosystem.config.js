@@ -37,22 +37,23 @@ module.exports = {
     {
       name: "django_server",
       script:
-        "sleep 5 && python3 manage.py migrate && python3 manage.py runserver",
+        "sleep 10 && python3 manage.py migrate && python3 manage.py runserver",
       watch: true,
       ignore_watch: ignoreWatch,
     },
     {
       name: "export DB and upload to FTP",
       script:
-        "sleep 15 && \
-        python -Xutf8 manage.py dumpdata backend.giveaway --indent 2 -o public/giveaways.json && \
-        curl -T public/giveaways.json ftp://${FTP_HOST}/public/ --user ${FTP_USERNAME}:${FTP_PASSWORD}",
+        'sleep 20 && \
+        python -Xutf8 manage.py dumpdata backend.giveaway --indent 2 -o public/unfiltered_giveaways.json && \
+        jq \'[.[] | select(.fields.status == "PUBLISHED" or .fields.status == "EXPIRED")] | sort_by(.fields.created_at) | reverse | [group_by(.fields.status)[] | if .[0].fields.status == "EXPIRED" then .[:100] else . end] | add\' public/unfiltered_giveaways.json > public/giveaways.json && \
+        curl -T public/giveaways.json ftp://${FTP_HOST}/public/ --user ${FTP_USERNAME}:${FTP_PASSWORD}',
       cron_restart: "*/5 * * * *",
       autorestart: false,
     },
     {
       name: "scraper",
-      script: "sleep 15 && python3 launch_scraper.py",
+      script: "sleep 30 && python3 launch_scraper.py",
       watch: false,
       cron_restart: "*/5 * * * *",
       autorestart: false,
@@ -60,7 +61,7 @@ module.exports = {
     },
     {
       name: "chatbot",
-      script: "sleep 15 && python3 launch_chatbot.py",
+      script: "sleep 30 && python3 launch_chatbot.py",
       exp_backoff_restart_delay: 5000,
       watch: true,
       ignore_watch: ignoreWatch,
