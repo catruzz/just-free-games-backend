@@ -48,9 +48,24 @@ def get_giveaways(supplier_id):
 
             giveaway_platforms = lib.get_giveaway_platforms(platforms)
 
-            # set expiration date to the second day of the next month
-            expiration_date = (datetime.datetime.today().replace(day=1) +
-                               datetime.timedelta(days=32)).replace(day=2, hour=0, minute=0, second=0, microsecond=0)
+            try:
+                expiration_date_text_containers = soup2.find_all(
+                    'span', class_='psw-c-t-2')
+                expiration_date_text = ''
+                for expiration_date_text_container in expiration_date_text_containers:
+                    if 'Offer ends' in expiration_date_text_container.text:
+                        expiration_date_text = expiration_date_text_container.text
+                        break
+
+                # parse Offer ends 11/5/2024 05:00 PM UTC
+                expiration_date_text = expiration_date_text.replace(
+                    'Offer ends', '').strip()
+                expiration_date = datetime.datetime.strptime(
+                    expiration_date_text, '%m/%d/%Y %I:%M %p %Z')
+            except Exception:
+                # set expiration date to the second day of the next month
+                expiration_date = (datetime.datetime.today().replace(day=1) +
+                                   datetime.timedelta(days=32)).replace(day=2, hour=0, minute=0, second=0, microsecond=0)
 
             # loop over radio buttons to find the MSRP
             msrp = None
