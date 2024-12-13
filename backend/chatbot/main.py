@@ -848,6 +848,13 @@ async def publish(context: ContextTypes.DEFAULT_TYPE) -> None:
             api.update_giveaway(giveaway=row)
             continue
 
+        # set status to PUBLISHED only if it's enqueued
+        if row['status'] == Giveaway.Status.QUEUED:
+            row['status'] = Giveaway.Status.PUBLISHED
+        # update the giveaway on DB before sending the message to the channels
+        # to avoid sending the same giveaway multiple times in case of social media errors
+        api.update_giveaway(giveaway=row)
+
         # skip if it has to be published only on website
         if row['publish_to_socials'] == True:
 
@@ -861,12 +868,6 @@ async def publish(context: ContextTypes.DEFAULT_TYPE) -> None:
             if not DEBUG:
                 text = giveaway_text + '\n\n' + get_temp_giveaway_hashtags_text()
                 client.create_tweet(text=text)
-
-        # set status to PUBLISHED only if it's enqueued
-        if row['status'] == Giveaway.Status.QUEUED:
-            row['status'] = Giveaway.Status.PUBLISHED
-        # save giveaway
-        api.update_giveaway(giveaway=row)
 
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
