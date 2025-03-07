@@ -11,7 +11,7 @@ django-import-export = "==4.0.7"
 djangorestframework = "==3.15.2"
 praw = "==7.7.1"
 python-dotenv = "==1.0.1"
-python-telegram-bot = {extras = ["job-queue"], version = "21.4"}
+python-telegram-bot = {extras = ["job-queue"], version = "21.11.1"}
 requests = "==2.32.3"
 selenium = "==4.21.0"
 tweepy = "==4.14.0"
