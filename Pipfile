@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-beautifulsoup4 = "==4.12.3"
+beautifulsoup4 = "==4.13.3"
 django = "==4.2.20"
 django-cors-headers = "==4.7.0"
 django-import-export = "==4.3.7"
