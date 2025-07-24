@@ -83,6 +83,10 @@ npm install
 pip install -r <(pipenv requirements)
 ```
 
+```
+sudo apt-get install chromium-chromedriver
+```
+
 4. Apply migrations:
 
 ```
