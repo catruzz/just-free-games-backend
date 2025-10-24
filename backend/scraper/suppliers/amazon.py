@@ -17,7 +17,7 @@ from backend.api import api
 def get_giveaways(supplier_id):
     giveaways = []
     giveaways_url = 'https://gaming.amazon.com'
-    base_giveaways_url = 'https://luna.amazon.it'
+    base_giveaways_url = 'https://luna.amazon.com'
 
     timeout = 15
 
