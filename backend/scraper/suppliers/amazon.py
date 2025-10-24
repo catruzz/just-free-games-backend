@@ -17,6 +17,7 @@ from backend.api import api
 def get_giveaways(supplier_id):
     giveaways = []
     giveaways_url = 'https://gaming.amazon.com'
+    base_giveaways_url = 'https://luna.amazon.it'
 
     timeout = 15
 
@@ -29,6 +30,8 @@ def get_giveaways(supplier_id):
         'const sleep = (ms) => {' +
         '  return new Promise((resolve) => setTimeout(resolve, ms));' +
         '};' +
+        'const gameButton = document.querySelector("button[data-type=\'Game\']");' +
+        'if (gameButton) { gameButton.click(); }' +
         'const check = async () => {' +
         '  let i = 0;' +
         '  let end = false;' +
@@ -78,7 +81,7 @@ def get_giveaways(supplier_id):
             for item in items:
                 link = item.find('a')
                 # makes each giveaway link unique
-                url = giveaways_url
+                url = base_giveaways_url
                 if link:
                     url += link['href']
                 else:
