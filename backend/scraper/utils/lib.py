@@ -164,6 +164,10 @@ def get_giveaway_platforms(text):
         temp = find_in_platforms('legacy_games')
         if temp:
             platforms.append(temp["id"])
+    if (re.search(r'\bstove\b', text, re.I)):
+        temp = find_in_platforms('stove')
+        if temp:
+            platforms.append(temp["id"])
     if (re.search(r'\b(iOs.*android|android.*iOs|mobile)\b', text, re.I)):
         temp = find_in_platforms('mobile')
         if temp:

@@ -122,6 +122,11 @@ class LibTest(TestCase):
         platforms = ['Legacy Games', 'legacy games']
         self.assert_platform_found(platforms, 'legacy_games')
 
+    def test_get_stove_platform(self):
+        """Correctly detect Stove platform"""
+        platforms = ['Stove', 'stove']
+        self.assert_platform_found(platforms, 'stove')
+
     def test_get_ios_platform(self):
         """Correctly detect iOS platform"""
         platforms = ['iOS']
