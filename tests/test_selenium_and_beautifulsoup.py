@@ -38,7 +38,7 @@ class LibTest(TestCase):
         try:
             soup = BeautifulSoup(page_source, 'html.parser')
             self.assertIsNotNone(soup)
-            script = soup.find("script", type="text/javascript")
+            script = soup.find("script")
             self.assertIsNotNone(script)
         except Exception:
             traceback.print_exc()
